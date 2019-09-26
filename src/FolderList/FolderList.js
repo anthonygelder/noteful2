@@ -3,7 +3,7 @@ import Folder from '../Folder/Folder';
 
 class FolderList extends Component {
     render() {
-    const folders = this.props.folders.map((folder, key) => <Folder {...folder} key={key} />)
+    const folders = this.props.folders.map((folder) => <Folder {...folder} key={folder.id} />)
 
 
         return (

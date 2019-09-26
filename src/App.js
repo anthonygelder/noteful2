@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import FolderList from './FolderList/FolderList';
-import Folder from './Folder/Folder';
-import Note from './Note/Note'
+// import Folder from './Folder/Folder';
+// import Note from './Note/Note'
 import NoteList from './NoteList/NoteList'
+import FilteredNotes from './FilteredNotes/FilteredNotes'
 import { Route, Link } from 'react-router-dom';
 import dummyStore from './dummy-store';
 
@@ -16,19 +17,6 @@ class App extends Component {
     };
   }
 
-  FolderListProps = () => {
-    return (
-      <FolderList
-        folders={this.state.folders} />
-    )
-  }
-
-  NoteListProps = () => {
-    return (
-      <NoteList
-        notes={this.state.notes} />
-    )
-  }
 
   render() {
     return (
@@ -40,13 +28,13 @@ class App extends Component {
         </Link>
         <div>
           <Route exact path='/'
-          render={this.FolderListProps} />
-          <Route exact path='/folder/:folder_id' render={this.FolderListProps} />
+            render={() => <FolderList folders={this.state.folders} /> } />
+          <Route exact path='/folder/:folder_id' render={() => <FolderList folders={this.state.folders} /> } />
         </div>
         <div>
           <Route exact path='/' 
-          render={this.NoteListProps} />
-          <Route exact path='/folder/:folder_id' component={Note} />
+            render={() => <NoteList notes={this.state.notes} /> } />
+          <Route exact path='/folder/:folder_id' render={() => <FilteredNotes notes={this.state.notes} /> } />
         </div>
       </div>
     );
