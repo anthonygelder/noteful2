@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import FolderList from './FolderList/FolderList';
 // import Folder from './Folder/Folder';
-// import Note from './Note/Note'
+import Sidebar from './Sidebar/Sidebar'
+import NoteDetail from './NoteDetail/NoteDetail'
 import NoteList from './NoteList/NoteList'
 import FilteredNotes from './FilteredNotes/FilteredNotes'
 import { Route, Link } from 'react-router-dom';
@@ -17,7 +18,6 @@ class App extends Component {
     };
   }
 
-
   render() {
     return (
       <div>
@@ -30,11 +30,13 @@ class App extends Component {
           <Route exact path='/'
             render={() => <FolderList folders={this.state.folders} /> } />
           <Route exact path='/folder/:folder_id' render={() => <FolderList folders={this.state.folders} /> } />
+          <Route exact path='/note/:note_id' render={(props) => <Sidebar nav={props} notes={this.state}/> }/>
         </div>
         <div>
           <Route exact path='/' 
             render={() => <NoteList notes={this.state.notes} /> } />
-          <Route exact path='/folder/:folder_id' render={() => <FilteredNotes notes={this.state.notes} /> } />
+          <Route exact path='/folder/:folder_id' render={(routeProps) => <FilteredNotes notes={this.state.notes} folderId={routeProps.match.params.folder_id}/> }/>
+          <Route exact path='/note/:note_id' render={(routeProps) => <NoteDetail notes={this.state.notes} folderId={routeProps}/> }/>
         </div>
       </div>
     );
