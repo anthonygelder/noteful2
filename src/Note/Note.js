@@ -30,14 +30,13 @@ function deleteNoteRequest(noteId, cb) {
 }
 
 
+
 class Note extends Component {
     static contextType = Context;
 
     render() {
         return (
-            
             <Context.Consumer>
-                {console.log(this.props.id)}
                 {(context) =>(
                 <div>
                     <NavLink to={`/note/${this.props.id}`}>
@@ -47,7 +46,7 @@ class Note extends Component {
                     <button onClick={() => {
                         deleteNoteRequest(
                             this.props.id,
-                            context.deleteNote
+                            this.context.deleteNote
                         )
                     }}>
                         Delete Note

@@ -8,8 +8,6 @@ import { Route, Link } from 'react-router-dom';
 import Context from './Context/Context'
 
 
-
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -65,7 +63,7 @@ class App extends Component {
           <div>
             <Route exact path='/' render={() => <NoteList /> } />
             <Route exact path='/folder/:folder_id' render={(routeProps) => <FilteredNotes folderId={routeProps.match.params.folder_id}/> }/>
-            <Route exact path='/note/:note_id' render={(routeProps) => <NoteDetail folderId={routeProps}/> }/>
+            <Route exact path='/note/:note_id' render={(routeProps) => <NoteDetail props={routeProps}/> }/>
           </div>
         </div>
       </Context.Provider>
