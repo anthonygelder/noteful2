@@ -10,7 +10,6 @@ class NoteList extends Component {
 
         return (
             <div>
-                {console.log(this.context)}
                 {notes}
                 <button>Add Note</button>
             </div>

@@ -1,10 +1,14 @@
 import React from 'react'
-import dummyStore from '../dummy-store';
+
 
 
 const Context = React.createContext({
-    notes: dummyStore.notes,
-    folders: dummyStore.folders
+    notes: [],
+    folders: [],
+    deleteNote: () => {
+        console.log("delete")
+    }
+
 })
 
 export default Context
