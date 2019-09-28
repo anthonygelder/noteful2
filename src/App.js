@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import FolderList from './FolderList/FolderList';
-// import Folder from './Folder/Folder';
 import Sidebar from './Sidebar/Sidebar'
 import NoteDetail from './NoteDetail/NoteDetail'
 import NoteList from './NoteList/NoteList'
 import FilteredNotes from './FilteredNotes/FilteredNotes'
 import { Route, Link } from 'react-router-dom';
 import dummyStore from './dummy-store';
+
 
 
 class App extends Component {
@@ -27,16 +27,14 @@ class App extends Component {
           </h1>
         </Link>
         <div>
-          <Route exact path='/'
-            render={() => <FolderList folders={this.state.folders} /> } />
-          <Route exact path='/folder/:folder_id' render={() => <FolderList folders={this.state.folders} /> } />
-          <Route exact path='/note/:note_id' render={(props) => <Sidebar nav={props} notes={this.state}/> }/>
+          <Route exact path='/' render={() => <FolderList /> } />
+          <Route exact path='/folder/:folder_id' render={() => <FolderList /> } />
+          <Route exact path='/note/:note_id' render={(props) => <Sidebar nav={props} /> }/>
         </div>
         <div>
-          <Route exact path='/' 
-            render={() => <NoteList notes={this.state.notes} /> } />
-          <Route exact path='/folder/:folder_id' render={(routeProps) => <FilteredNotes notes={this.state.notes} folderId={routeProps.match.params.folder_id}/> }/>
-          <Route exact path='/note/:note_id' render={(routeProps) => <NoteDetail notes={this.state.notes} folderId={routeProps}/> }/>
+          <Route exact path='/' render={() => <NoteList /> } />
+          <Route exact path='/folder/:folder_id' render={(routeProps) => <FilteredNotes folderId={routeProps.match.params.folder_id}/> }/>
+          <Route exact path='/note/:note_id' render={(routeProps) => <NoteDetail folderId={routeProps}/> }/>
         </div>
       </div>
     );

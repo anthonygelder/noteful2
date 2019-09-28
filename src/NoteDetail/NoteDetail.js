@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import Context from '../Context/Context'
 
 
 class NoteDetail extends Component {
+    static contextType = Context;
+
     render() {
-        const note = this.props.notes.filter(note => note.id === this.props.folderId.match.params.note_id).shift()
+        const note = this.context.notes.filter(note => note.id === this.props.folderId.match.params.note_id).shift()
 
         return (
             <>
