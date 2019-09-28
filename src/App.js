@@ -14,9 +14,21 @@ class App extends Component {
     super(props)
     this.state = {
       notes: dummyStore.notes,
-      folders: dummyStore.folders
+      folders: []
     };
   }
+
+
+  componentDidMount() {
+    fetch('http://localhost:9090/folders')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+    })
+  }
+  
+
+
 
   render() {
     return (

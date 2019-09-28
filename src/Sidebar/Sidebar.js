@@ -13,7 +13,6 @@ class Sidebar extends Component {
 
         return (
             <>        
-                {console.log(this.context)}
                 <button title="Go back" onClick={() => this.props.nav.history.goBack()}> Go back </button>
                 <h3>{folder.name}</h3>
             </>
