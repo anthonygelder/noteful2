@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Note from '../Note/Note'
 import Context from '../Context/Context'
+import { Link } from 'react-router-dom';
 
 class NoteList extends Component {
     static contextType = Context;
@@ -11,7 +12,6 @@ class NoteList extends Component {
         return (
             <div>
                 {notes}
-                <button>Add Note</button>
             </div>
         )
     }

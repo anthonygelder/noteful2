@@ -6,6 +6,10 @@ import NoteList from './NoteList/NoteList'
 import FilteredNotes from './FilteredNotes/FilteredNotes'
 import { Route, Link } from 'react-router-dom';
 import Context from './Context/Context'
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
+import ErrorBoundry from './ErrorBoundry/ErrorBoundry';
+import AddNoteButton from './AddNoteButton/AddNoteButton';
 
 
 class App extends Component {
@@ -15,6 +19,19 @@ class App extends Component {
       notes: [],
       folders: []
     };
+  }
+
+  addFolder = folder => {
+    this.setState({
+      folders: [...this.state.folders, folder]
+    })
+  }
+
+  addNote = note => {
+    console.log(note, "from add note")
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
   }
 
   deleteNote = noteId => {
@@ -42,10 +59,13 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.notes)
     const contextValue = {
       folders: this.state.folders,
       notes: this.state.notes,
-      deleteNote: this.deleteNote
+      deleteNote: this.deleteNote,
+      addFolder: this.addFolder,
+      addNote: this.addNote
     }
     return (
       <Context.Provider value={contextValue}>
@@ -55,16 +75,22 @@ class App extends Component {
               Noteful
             </h1>
           </Link>
-          <div>
-            <Route exact path='/' render={() => <FolderList /> } />
-            <Route exact path='/folder/:folder_id' render={() => <FolderList /> } />
-            <Route exact path='/note/:note_id' render={(props) => <Sidebar nav={props} /> }/>
-          </div>
-          <div>
-            <Route exact path='/' render={() => <NoteList /> } />
-            <Route exact path='/folder/:folder_id' render={(routeProps) => <FilteredNotes folderId={routeProps.match.params.folder_id}/> }/>
-            <Route exact path='/note/:note_id' render={(routeProps) => <NoteDetail props={routeProps}/> }/>
-          </div>
+          <ErrorBoundry>
+            <div>
+              <Route exact path='/' render={() => <FolderList /> } />
+              <Route exact path='/folder/:folder_id' render={(props) => <FolderList folders={this.state.folders} /> } />
+              <Route exact path='/note/:note_id' render={(props) => <Sidebar nav={props} /> }/>
+            </div>
+            <div>
+              <Route exact path='/' render={() => <NoteList /> } />
+              <Route exact path='/folder/:folder_id' render={(routeProps) => <FilteredNotes folderId={routeProps.match.params.folder_id}/> }/>
+              <Route exact path='/note/:note_id' render={(routeProps) => <NoteDetail props={routeProps}/> }/>
+              <Route exact path='/addFolder' render={({ history }) => <AddFolder /> }/>
+              <Route exact path='/addNote' render={({ history }) => <AddNote /> }/>
+              <Route exact path='/' component={AddNoteButton} />
+              <Route exact path='/folder/:folder_id' component={AddNoteButton} />
+            </div>
+          </ErrorBoundry>
         </div>
       </Context.Provider>
     );

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Note from '../Note/Note'
 import Context from '../Context/Context'
+import PropTypes from 'prop-types';
+
 
 class FilteredNotes extends Component {
     static contextType = Context;
@@ -13,10 +15,13 @@ class FilteredNotes extends Component {
         return (
             <div>
                 {filteredNotes}
-                <button>Add Note</button>
             </div>
         )
     }
 }
+
+FilteredNotes.propTypes = {
+    folderId: PropTypes.string.isRequired
+};
 
 export default FilteredNotes;

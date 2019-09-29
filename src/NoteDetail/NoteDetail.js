@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Context from '../Context/Context'
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 
-
-function deleteNoteRequest(noteId, cb, rd) {
+function deleteNoteRequest(noteId, cb) {
     fetch(`http://localhost:9090/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
@@ -14,19 +14,19 @@ function deleteNoteRequest(noteId, cb, rd) {
     })
     .then(res => {
         if (!res.ok) {
-          return res.json().then(error => {
-            throw error
-          })
-        }
-        return res.json()
-      })
-      .then(data => {
-        cb(noteId)
-      })
-      .catch(error => {
-        console.error(error)
-      })
-}
+            return res.json().then(error => {
+                throw error
+            })
+            }
+            return res.json()
+        })
+        .then(data => {
+            cb(noteId)
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
 
 
 class NoteDetail extends Component {
@@ -49,11 +49,14 @@ class NoteDetail extends Component {
                     }}>Delete Note</button>
                     </Link>
                 </div>
-                {console.log(this.props.history)}
                 <p>{note.content}</p>
             </>
         )
     }
 }
+
+NoteDetail.propTypes = {
+    props: PropTypes.object.isRequired
+};
 
 export default withRouter(NoteDetail);
