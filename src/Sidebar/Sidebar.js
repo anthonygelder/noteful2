@@ -14,8 +14,6 @@ class Sidebar extends Component {
         const note = this.context.notes.filter(note => note.id === this.props.nav.match.params.note_id).shift()
         const noteFolder = note.folderId;
         const folder = this.context.folders.filter(folder => folder.id === noteFolder).shift()
-
-        console.log(note)
         return (
             <>        
                 <button title="Go back" onClick={() => this.props.nav.history.goBack()}> Go back </button>

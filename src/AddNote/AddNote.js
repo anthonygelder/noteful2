@@ -25,17 +25,13 @@ class AddNote extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        let today = new Date();
-        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        let dateTime = date+'-'+time;
+        let now = new Date();
         const note = {
             name: this.state.name,
             content: this.state.content,
             folderId: this.state.folderId,
-            modified: dateTime
+            modified: now
         }
-        console.log(dateTime)
         this.addNote(note, this.context.addNote)
     }
 
@@ -57,7 +53,7 @@ class AddNote extends Component {
             })
             .then(data => {
                 this.props.history.push('/')
-                cb(note)
+                cb(data)
             })
             .catch(error => {
                 console.error(error)

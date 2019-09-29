@@ -18,7 +18,6 @@ class AddFolder extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const name = this.state;
-        console.log("submit", name)
         this.addFolder(name, this.context.addFolder)
     }
 
@@ -40,7 +39,7 @@ class AddFolder extends Component {
             })
             .then(data => {
                 this.props.history.push('/')
-                cb(folder)
+                cb(data)
             })
             .catch(error => {
                 console.error(error)

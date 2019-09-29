@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   addNote = note => {
-    console.log(note, "from add note")
     this.setState({
       notes: [...this.state.notes, note]
     })
@@ -59,7 +58,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.notes)
     const contextValue = {
       folders: this.state.folders,
       notes: this.state.notes,
