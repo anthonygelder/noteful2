@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Context from '../Context/Context'
+import '../NoteDetail/NoteDetail.css'
 
 function deleteNoteRequest(noteId, cb) {
     fetch(`http://localhost:9090/notes/${noteId}`, {
@@ -11,25 +12,19 @@ function deleteNoteRequest(noteId, cb) {
     })
     .then(res => {
         if (!res.ok) {
-          // get the error message from the response,
-          return res.json().then(error => {
-            // then throw it
-            throw error
-          })
+            return res.json().then(error => {
+                throw error
+            })
         }
         return res.json()
-      })
-      .then(data => {
-        // call the callback when the request is successful
-        // this is where the App component can remove it from state
-        cb(noteId)
-      })
-      .catch(error => {
-        console.error(error)
-      })
+        })
+        .then(data => {
+            cb(noteId)
+        })
+        .catch(error => {
+            console.error(error)
+    })
 }
-
-
 
 class Note extends Component {
     static contextType = Context;
@@ -38,11 +33,11 @@ class Note extends Component {
         return (
             <Context.Consumer>
                 {(context) =>(
-                <div>
+                <div className="note">
                     <NavLink to={`/note/${this.props.id}`}>
                         <h2>{this.props.name}</h2>
                     </NavLink>
-                    <p>Modified on {this.props.modified}</p>
+                    <p>Modified on {this.props.modified.slice(0, 10)}</p>
                     <button onClick={() => {
                         deleteNoteRequest(
                             this.props.id,
@@ -51,8 +46,7 @@ class Note extends Component {
                     }}>
                         Delete Note
                     </button>
-                </div>
-                )}
+                </div>)}
             </Context.Consumer>
         )
     }

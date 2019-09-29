@@ -12,7 +12,7 @@ class FolderList extends Component {
     }
     
     render() {
-        // console.log(this.context.folders)
+        
         const folders = this.context.folders.map((folder) => <Folder {...folder} key={folder.id} />)
 
 

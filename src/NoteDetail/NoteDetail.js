@@ -3,7 +3,7 @@ import Context from '../Context/Context'
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
-
+import './NoteDetail.css'
 
 function deleteNoteRequest(noteId, cb) {
     fetch(`http://localhost:9090/notes/${noteId}`, {
@@ -37,9 +37,9 @@ class NoteDetail extends Component {
 
         return (
             <>
-                <div>
+                <div className="note">
                     <h2>{note.name}</h2>
-                    <p>Modified on {note.modified}</p> 
+                    <p>Modified on {note.modified.slice(0, 10)}</p> 
                     <Link to={'/'}>
                     <button onClick={() => {
                         deleteNoteRequest(

@@ -11,7 +11,6 @@ class FilteredNotes extends Component {
         const filteredNotes = this.context.notes
                                         .filter(note => note.folderId === this.props.folderId)
                                         .map(note => <Note {...note} key={note.id} />)
-
         return (
             <div>
                 {filteredNotes}
