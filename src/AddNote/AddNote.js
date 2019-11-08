@@ -2,41 +2,41 @@ import React, { Component } from 'react';
 import Context from '../Context/Context'
 import { withRouter } from 'react-router-dom';
 
+const { DB_URL } = require('../config')
+
 class AddNote extends Component {
     static contextType = Context;
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            note_name: '',
             content: '',
-            folderId: 'b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1'
+            folder_id: '1'
         }
     }
 
     updateName(name) {
-        this.setState({name: name});
+        this.setState({note_name: name});
     }
     updateContent(content) {
         this.setState({content: content});
     }
-    updateFolderId(folder) {
-        this.setState({folderId: folder});
+    updateFolderId(folder_id) {
+        this.setState({folder_id: folder_id});
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        let now = new Date();
         const note = {
-            name: this.state.name,
+            note_name: this.state.note_name,
             content: this.state.content,
-            folderId: this.state.folderId,
-            modified: now
+            folder_id: this.state.folder_id,
         }
         this.addNote(note, this.context.addNote)
     }
 
     addNote(note, cb) {
-        fetch(`http://localhost:9090/notes`, {
+        fetch(`${DB_URL}api/notes`, {
             method: 'POST',
             body: JSON.stringify(note),
             headers: {
@@ -62,7 +62,7 @@ class AddNote extends Component {
 
     render() {
         const folderOptions = this.context.folders.map(folder => (
-            <option key={folder.id} value={folder.id}>{folder.name}</option>
+            <option key={folder.id} value={folder.id}>{folder.folder_name}</option>
         ))
 
         return (

@@ -8,7 +8,8 @@ class Folder extends Component {
         return (
             <NavLink to={`/folder/${this.props.id}`}>
                 <div className="folder">
-                        <h2>{this.props.name}</h2>
+                        <h2>{this.props.folder_name}</h2>
+                        
                 </div>
             </NavLink>
         )

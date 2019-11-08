@@ -12,9 +12,8 @@ class FolderList extends Component {
     }
     
     render() {
-        
+    
         const folders = this.context.folders.map((folder) => <Folder {...folder} key={folder.id} />)
-
 
         return (
             <div>

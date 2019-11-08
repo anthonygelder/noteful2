@@ -2,27 +2,30 @@ import React, { Component } from 'react';
 import Context from '../Context/Context'
 import { withRouter } from 'react-router-dom';
 
+const { DB_URL } = require('../config')
+
 class AddFolder extends Component {
     static contextType = Context;
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
+            folder_name: ''
         }
     }
 
     updateName(name) {
-        this.setState({name: name});
+        this.setState({folder_name: name});
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const name = this.state;
-        this.addFolder(name, this.context.addFolder)
+        const folder_name = this.state;
+        this.addFolder(folder_name, this.context.addFolder)
     }
 
     addFolder(folder, cb) {
-        fetch(`http://localhost:9090/folders`, {
+        console.log(DB_URL)
+        fetch(`${DB_URL}api/folders`, {
             method: 'POST',
             body: JSON.stringify(folder),
             headers: {

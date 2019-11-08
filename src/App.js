@@ -12,6 +12,7 @@ import ErrorBoundry from './ErrorBoundry/ErrorBoundry';
 import AddNoteButton from './AddNoteButton/AddNoteButton';
 import './App.css'
 
+const { DB_URL } = require('./config')
 
 class App extends Component {
   constructor(props) {
@@ -42,14 +43,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:9090/folders')
+    fetch(`${DB_URL}api/folders`)
       .then(response => response.json())
       .then(data => {
         this.setState({
           folders: data
         })
     })
-    fetch('http://localhost:9090/notes')
+    fetch(`${DB_URL}api/notes`)
     .then(response => response.json())
     .then(data => {
       this.setState({

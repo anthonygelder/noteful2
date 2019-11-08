@@ -3,8 +3,10 @@ import { NavLink } from 'react-router-dom';
 import Context from '../Context/Context'
 import '../NoteDetail/NoteDetail.css'
 
+const { DB_URL } = require('../config')
+
 function deleteNoteRequest(noteId, cb) {
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`${DB_URL}api/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'
@@ -16,7 +18,7 @@ function deleteNoteRequest(noteId, cb) {
                 throw error
             })
         }
-        return res.json()
+        // return res.json()
         })
         .then(data => {
             cb(noteId)
@@ -30,14 +32,15 @@ class Note extends Component {
     static contextType = Context;
 
     render() {
+
         return (
             <Context.Consumer>
                 {(context) =>(
                 <div className="note">
                     <NavLink to={`/note/${this.props.id}`}>
-                        <h2>{this.props.name}</h2>
+                        <h2>{this.props.note_name}</h2>
                     </NavLink>
-                    <p>Modified on {this.props.modified.slice(0, 10)}</p>
+                    <p>Posted on {this.props.date_created.slice(0, 10)}</p>
                     <button onClick={() => {
                         deleteNoteRequest(
                             this.props.id,

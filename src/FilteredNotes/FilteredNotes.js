@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 
 class FilteredNotes extends Component {
     static contextType = Context;
-
     render() {
         const filteredNotes = this.context.notes
-                                        .filter(note => note.folderId === this.props.folderId)
+                                        .filter(note => +note.folder_id === +this.props.folderId)
                                         .map(note => <Note {...note} key={note.id} />)
         return (
             <div>

@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import './NoteDetail.css'
 
+const { DB_URL } = require('../config')
+
 function deleteNoteRequest(noteId, cb) {
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`${DB_URL}api/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json'
@@ -18,7 +20,7 @@ function deleteNoteRequest(noteId, cb) {
                 throw error
             })
             }
-            return res.json()
+            // return res.json()
         })
         .then(data => {
             cb(noteId)
@@ -32,24 +34,28 @@ function deleteNoteRequest(noteId, cb) {
 class NoteDetail extends Component {
     static contextType = Context;
 
+    
+    
     render() {
-        const note = this.context.notes.filter(note => note.id === this.props.match.params.note_id).shift()
+        const { notes } = this.context
+        const { note_id } = this.props.match.params
+        const _note = notes.filter(note => +note.id === +note_id).shift()
 
         return (
             <>
                 <div className="note">
-                    <h2>{note.name}</h2>
-                    <p>Modified on {note.modified.slice(0, 10)}</p> 
+                    <h2>{_note.note_name}</h2>
+                    <p>Modified on {_note.date_created.slice(0, 10)}</p> 
                     <Link to={'/'}>
                     <button onClick={() => {
                         deleteNoteRequest(
-                            note.id,
+                            _note.id,
                             this.context.deleteNote
                         )
                     }}>Delete Note</button>
                     </Link>
                 </div>
-                <p>{note.content}</p>
+                <p>{_note.content}</p>
             </>
         )
     }
